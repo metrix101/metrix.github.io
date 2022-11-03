@@ -1,0 +1,1 @@
+function confirmar(b,a){if(confirm(b)){location.href=a}else{self.focus()}}$("#acceptNewsletterPolicy").on("change",function(){if(this.checked){$("#sendNewsletterButton").attr("disabled",false)}else{$("#sendNewsletterButton").attr("disabled",true)}});

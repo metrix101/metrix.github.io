@@ -1,0 +1,55 @@
+$( document ).ready(function() {
+
+	$('.js-accordion').find('.icon-ss-plus-sign').append('<span class="sr-only">Expandir e colapsar</span>');
+	
+	$("#toggleFontBtn").click(function() {
+		var hasFont = $("html").hasClass("accessibility__font");
+		Cookies.set('acessibilityFont', hasFont);
+	});
+
+	if($('.nav-menu').length){
+		$('.nav-menu a.open').addClass("active");
+		var len = $('.nav-menu .layouts').length;
+		if(len > 2){		
+			$('.nav-menu .level-'+len+' a.selected').removeClass("aside__link");
+		}
+	}
+	
+	$('.icon-ss-plus.map-locations__link, .content__detail-text.map-locations__text').on('click', function(){
+		$(this).parent().siblings('.map__modal').show();
+	});
+	
+	$('.map__modal-close.js-modal-close').on('click', function(){
+		$(this).parents('.map__modal.js-modal').hide();
+	});
+	
+	$('.link.moreEntityDetails').on('click', function(e){
+	    e.preventDefault();
+		$(this).parent().siblings('.extraContent').toggle();
+	});
+});
+
+AUI().use('aui-form-validator', function(A) {
+	var defaultFormValidator = A.config.FormValidator;
+
+	A.mix(
+			defaultFormValidator.RULES,
+			{
+				phone: function (value, fieldNode, ruleValue) {
+					if(undefined == value || value == null || value == '')
+						return true;
+ 
+					return /^(\+?)(?:[0-9] ?){8,11}[0-9]$/.test(value);
+				},
+			},
+			true
+	);
+ 
+	A.mix(
+			defaultFormValidator.STRINGS,
+			{
+				phone: Liferay.Language.get('please-enter-a-valid-phone-number')
+			},
+			true
+	);
+});
